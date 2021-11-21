@@ -1,4 +1,5 @@
 import flask
+import json
 from flask import Flask, request, render_template, jsonify
 from flask_restful import Resource, Api
 
@@ -15,19 +16,21 @@ graphs = []
 #        graphs[label] = request.form['data']
 #        return {label: graphs[label]}
 
-#api.add_resource(TodoSimple, '/<string:graph_id>')
+
+graphs = []
 @app.route("/", methods=["GET"])
 def get_data():
-    print("graphs from get", graphs)
     return flask.render_template("graph.html", graphs = graphs)
 
-@app.route("/", methods=["PUT","POST"])
+@app.route("/", methods=["POST"])
 def put_data():
-    #print(request)
-    graph = request.form['data']
+    # Use the line below if request comes through usual POST
+    #graph = request.form['data']
+    #graph = json.loads(graph)
+    graph = request.get_json()
     print(graph)
-    #graphs.append(graph.data)    
-    return jsonify(graph)
+    graphs.append(graph)    
+    return flask.render_template("graph.html", graphs = graphs)
  
 if __name__=="__main__":
     app.run(debug=True)
