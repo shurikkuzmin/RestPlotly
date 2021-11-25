@@ -20,6 +20,8 @@ graphs = []
 graphs = []
 @app.route("/", methods=["GET"])
 def get_data():
+    graphs=[{"x":[1,2,3],"y":[10,9,8],"mode": "Scatter", "name":"test"},{"x":[10,12,13],"y":[1,2,3],"name":"test2","mode":"Scatter"}]    
+
     return flask.render_template("graph.html", graphs = graphs)
 
 @app.route("/", methods=["POST"])
@@ -29,7 +31,7 @@ def put_data():
     #graph = json.loads(graph)
     graph = request.get_json()
     print(graph)
-    graphs.append(graph)    
+    #graphs.append(graph)
     return flask.render_template("graph.html", graphs = graphs)
  
 if __name__=="__main__":

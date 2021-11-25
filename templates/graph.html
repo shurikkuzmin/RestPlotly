@@ -8,7 +8,8 @@
 <script>
 	GRAPH = document.getElementById('graph');
 	
-    var test= {{ graphs | tojson | safe }};
-    Plotly.newPlot( GRAPH, test, {
+    var data = '{{ graphs | tojson | safe }}';
+    var parsed_data = JSON.parse(data);
+    Plotly.newPlot( GRAPH, parsed_data, {
 	margin: { t: 0 } } );
 </script>
