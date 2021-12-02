@@ -9,8 +9,12 @@ def follow(file, sleep_sec=0.1):
         if tmp is not None:
             line += tmp
             if line.endswith("\n"):
-                subprocess.Popen(["curl",'"http://127.0.0.1:5000"'], shell=True)
-                #-H "Content-Type: application/json" -d "{""Curve"":{""x"":[1,2],""y"":[3,4]}}" -X POST')
+                numbers = line[:-1].split(" ")
+                print(numbers)
+                p = subprocess.Popen(["curl","http://127.0.0.1:5000","-H","Content-Type: application/json",
+                                      "-d",f"{{\"Curve\":{{\"x\":{numbers[0]},\"y\":{numbers[1]}}}}}","-X","POST"], shell=True)
+                
+                p.wait()
                 yield line
                 line = ''
         elif sleep_sec:
