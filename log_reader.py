@@ -11,8 +11,9 @@ def follow(file, sleep_sec=0.1):
             if line.endswith("\n"):
                 numbers = line[:-1].split(" ")
                 print(numbers)
+                print("String=",f"{{\"Curve\":{{\"x\":{numbers[0]},\"y\":{numbers[1]}}}}}")
                 p = subprocess.Popen(["curl","http://127.0.0.1:5000","-H","Content-Type: application/json",
-                                      "-d",f"{{\"Curve\":{{\"x\":{numbers[0]},\"y\":{numbers[1]}}}}}","-X","POST"], shell=True)
+                                      "-d",f"{{\"Curve\":{{\"x\":[{numbers[0]}],\"y\":[{numbers[1]}]}}}}","-X","POST"], shell=True)
                 
                 p.wait()
                 yield line
